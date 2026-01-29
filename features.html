@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Features & Services - Udyam</title>
     <meta name="description" content="Comprehensive suite of business management tools including sales, inventory, payments, returns, and analytics.">
+    <link rel="icon" type="image/png" href="assets/Udyam-logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +17,9 @@
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <h2>Udyam</h2>
+                    <a href="index.html">
+                        <img src="assets/Udyam-logo.png" alt="Udyam Logo" class="logo-img">
+                    </a>
                 </div>
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
@@ -35,14 +38,73 @@
         </div>
     </section>
 
+    <!-- Feature Tabs -->
+    <section class="feature-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <!-- Category 1: Core Operations -->
+                <div class="tab-category">
+                    <button class="tab-button category-button active"
+                            onclick="toggleCategory(event, 'core-ops')">
+                        Core Operations <span class="dropdown-icon">▼</span>
+                    </button>
+                    <div id="core-ops" class="tab-dropdown active">
+                        <button class="tab-sub-button active" onclick="openTab(event, 'sales')">Sales</button>
+                        <button class="tab-sub-button" onclick="openTab(event, 'inventory')">Inventory</button>
+                        <button class="tab-sub-button" onclick="openTab(event, 'returns')">Returns</button>
+                    </div>
+                </div>
+
+                <!-- Category 2: Financial -->
+                <div class="tab-category">
+                    <button class="tab-button category-button"
+                            onclick="toggleCategory(event, 'financial')">
+                        Financial <span class="dropdown-icon">▼</span>
+                    </button>
+                    <div id="financial" class="tab-dropdown">
+                        <button class="tab-sub-button" onclick="openTab(event, 'payment')">Payments</button>
+                        <button class="tab-sub-button" onclick="openTab(event, 'debitor')">Debitors/Creditors</button>
+                    </div>
+                </div>
+
+                <!-- Category 3: Reports (No dropdown) -->
+                <div class="tab-category">
+                    <button class="tab-button direct-button" onclick="openTab(event, 'reports')">
+                        Reports
+                    </button>
+                </div>
+
+                <!-- Category 4: System -->
+                <div class="tab-category">
+                    <button class="tab-button category-button"
+                            onclick="toggleCategory(event, 'system')">
+                        System <span class="dropdown-icon">▼</span>
+                    </button>
+                    <div id="system" class="tab-dropdown">
+                        <button class="tab-sub-button" onclick="openTab(event, 'language')">Languages</button>
+                        <button class="tab-sub-button" onclick="openTab(event, 'security')">Security</button>
+                    </div>
+                </div>
+
+                <!-- Category 5: Advanced -->
+                <div class="tab-category">
+                    <button class="tab-button direct-button" onclick="openTab(event, 'advanced')">
+                        Advanced
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Detailed Features -->
     <section class="detailed-features">
         <div class="container">
-            <!-- Sales Management -->
-            <div class="feature-detail">
-                <div class="feature-detail-content">
-                    <div class="feature-icon-large">🛍️</div>
-                    <h2>Sales Management</h2>
+            <!-- Sales Management Tab -->
+            <div id="sales" class="tab-content active">
+                <div class="feature-detail">
+                    <div class="feature-detail-content">
+                        <div class="feature-icon-large">🛍️</div>
+                        <h2>Sales Management</h2>
                     <div class="feature-subsection">
                         <h3>Transaction Tracking</h3>
                         <ul class="feature-list">
@@ -68,9 +130,11 @@
                     <div class="placeholder-image">🛍️</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Inventory Management -->
-            <div class="feature-detail reverse">
+            <!-- Inventory Management Tab -->
+            <div id="inventory" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">📦</div>
                     <h2>Inventory Management</h2>
@@ -99,9 +163,11 @@
                     <div class="placeholder-image">📦</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Payment Tracking -->
-            <div class="feature-detail">
+            <!-- Payment Tracking Tab -->
+            <div id="payment" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">💳</div>
                     <h2>Payment Tracking</h2>
@@ -130,9 +196,11 @@
                     <div class="placeholder-image">💳</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Returns Management -->
-            <div class="feature-detail reverse">
+            <!-- Returns Management Tab -->
+            <div id="returns" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">🔄</div>
                     <h2>Returns Management</h2>
@@ -160,9 +228,11 @@
                     <div class="placeholder-image">🔄</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Debitor & Creditor Management -->
-            <div class="feature-detail">
+            <!-- Debitor & Creditor Management Tab -->
+            <div id="debitor" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">👥</div>
                     <h2>Debitor & Creditor Management</h2>
@@ -191,9 +261,11 @@
                     <div class="placeholder-image">👥</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Reports & Analytics -->
-            <div class="feature-detail reverse">
+            <!-- Reports & Analytics Tab -->
+            <div id="reports" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">📊</div>
                     <h2>Reports & Analytics</h2>
@@ -223,9 +295,11 @@
                     <div class="placeholder-image">📊</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Multi-Language Support -->
-            <div class="feature-detail">
+            <!-- Multi-Language Support Tab -->
+            <div id="language" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">🌐</div>
                     <h2>Multi-Language Support</h2>
@@ -244,9 +318,11 @@
                     <div class="placeholder-image">🌐</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Security & Privacy -->
-            <div class="feature-detail reverse">
+            <!-- Security & Privacy Tab -->
+            <div id="security" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">🔐</div>
                     <h2>Security & Privacy</h2>
@@ -266,9 +342,11 @@
                     <div class="placeholder-image">🔐</div>
                 </div>
             </div>
+            </div>
 
-            <!-- Advanced Features -->
-            <div class="feature-detail">
+            <!-- Advanced Features Tab -->
+            <div id="advanced" class="tab-content">
+                <div class="feature-detail">
                 <div class="feature-detail-content">
                     <div class="feature-icon-large">💼</div>
                     <h2>Advanced Features</h2>
@@ -299,8 +377,57 @@
                     <div class="placeholder-image">💼</div>
                 </div>
             </div>
+            </div>
         </div>
     </section>
+
+    <script>
+        function toggleCategory(evt, categoryId) {
+            const dropdown = document.getElementById(categoryId);
+            const button = evt.currentTarget;
+
+            // Toggle dropdown visibility
+            dropdown.classList.toggle('active');
+            button.classList.toggle('active');
+
+            // Close other dropdowns
+            document.querySelectorAll('.tab-dropdown').forEach(function(dd) {
+                if (dd.id !== categoryId) {
+                    dd.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.category-button').forEach(function(btn) {
+                if (btn !== button) {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all sub-buttons
+            var tabSubButtons = document.getElementsByClassName("tab-sub-button");
+            for (var i = 0; i < tabSubButtons.length; i++) {
+                tabSubButtons[i].classList.remove("active");
+            }
+
+            // Show the selected tab and mark button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            // Scroll to features section smoothly
+            document.querySelector('.detailed-features').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    </script>
 
     <!-- Coming Soon Section -->
     <section class="coming-soon-section">
