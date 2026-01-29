@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+
+# Optional: Uncomment if you don't want to commit large installer files
+# and prefer to use GitHub Releases instead
+# downloads/*.exe
+# downloads/*.dmg
