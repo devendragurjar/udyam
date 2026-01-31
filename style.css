@@ -333,7 +333,7 @@ html {
 
 /* Stats Counter Section */
 .stats-section {
-    padding: 3rem 0;
+    padding: 2rem 0;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     position: relative;
     overflow: hidden;
@@ -352,10 +352,11 @@ html {
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
-    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 600px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -363,51 +364,44 @@ html {
 
 .stat-card {
     text-align: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 1.25rem 2rem;
+    background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 200px;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .stat-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
 }
 
 .stat-number {
-    font-size: 3rem;
-    font-weight: 800;
+    font-size: 2.25rem;
+    font-weight: 700;
     color: var(--bg-white);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     font-family: 'Inter', sans-serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    line-height: 1;
 }
 
 .stat-label {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 /* Demo Video Section */
@@ -1714,28 +1708,34 @@ html {
     }
 
     .stats-section {
-        padding: 2rem 0;
+        padding: 1.5rem 0;
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 100%;
     }
 
     .stat-card {
-        padding: 1.5rem;
+        padding: 1rem 1.5rem;
+        min-width: auto;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
 
     .stat-icon {
-        font-size: 2.5rem;
+        font-size: 1.75rem;
+        margin-bottom: 0.25rem;
     }
 
     .stat-number {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .stat-label {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     .coming-soon-grid {
