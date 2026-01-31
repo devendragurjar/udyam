@@ -331,6 +331,57 @@ html {
     flex-wrap: wrap;
 }
 
+/* Demo Video Section */
+.demo-video-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg-light) 100%);
+}
+
+.demo-video-section .section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.demo-video-section .section-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+}
+
+.video-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(71, 85, 105, 0.2);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(71, 85, 105, 0.25);
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    background-color: #000;
+}
+
 /* Features Overview */
 .features-overview {
     padding: 5rem 0;
@@ -1563,6 +1614,24 @@ html {
 
     .requirements-grid {
         grid-template-columns: 1fr;
+    }
+
+    .demo-video-section {
+        padding: 3rem 0;
+    }
+
+    .demo-video-section .section-title {
+        font-size: 1.75rem;
+    }
+
+    .demo-video-section .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .video-container {
+        padding: 0.5rem;
+        max-width: 100%;
     }
 
     .coming-soon-grid {
