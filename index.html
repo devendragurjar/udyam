@@ -58,23 +58,19 @@
                     </a>
                 </div>
                 <p class="version-info"><strong>Version:</strong> 1.0.0 | <strong>Size:</strong> ~150MB | <strong>License:</strong> Free Trial (180 days)</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- Stats Counter Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📥</div>
-                    <div class="stat-number" id="downloads-counter">0</div>
-                    <div class="stat-label">Total Downloads</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-number" id="visitors-counter">0</div>
-                    <div class="stat-label">Site Visitors</div>
+                <!-- Stats Counter -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📥</div>
+                        <div class="stat-number" id="downloads-counter">0</div>
+                        <div class="stat-label">Total Downloads</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number" id="visitors-counter">0</div>
+                        <div class="stat-label">Site Visitors</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -304,15 +300,16 @@
         // Get or increment visitor count
         function updateVisitorCount() {
             const visitorKey = 'udyam_visitor_count';
-            const hasVisited = sessionStorage.getItem('udyam_has_visited');
+            const visitorFlagKey = 'udyam_visitor_tracked';
+            const hasVisited = localStorage.getItem(visitorFlagKey);
 
             let count;
             if (!hasVisited) {
-                // New session - increment visitor count
+                // New unique visitor - increment visitor count
                 count = incrementCounter(visitorKey, 299); // Start from 299, will increment to 300
-                sessionStorage.setItem('udyam_has_visited', 'true');
+                localStorage.setItem(visitorFlagKey, 'true');
             } else {
-                // Returning in same session - just show count
+                // Returning visitor - just show count
                 count = initializeCounter(visitorKey, 300); // Base value: 300 visitors
             }
 
