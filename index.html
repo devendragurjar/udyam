@@ -273,40 +273,60 @@
             }, stepTime);
         }
 
-        // Fetch and display visitor count
-        async function updateVisitorCount() {
-            try {
-                const response = await fetch('https://api.countapi.xyz/hit/udyam-website/visitors');
-                const data = await response.json();
-                const visitorElement = document.getElementById('visitors-counter');
-                animateCounter(visitorElement, data.value);
-            } catch (error) {
-                console.error('Error fetching visitor count:', error);
-                document.getElementById('visitors-counter').textContent = '---';
+        // Initialize counter with base value and localStorage
+        function initializeCounter(key, baseValue) {
+            const stored = localStorage.getItem(key);
+            if (!stored) {
+                // First time initialization with base value
+                localStorage.setItem(key, baseValue.toString());
+                return baseValue;
             }
+            return parseInt(stored);
         }
 
-        // Fetch and display download count
-        async function updateDownloadCount() {
-            try {
-                const response = await fetch('https://api.countapi.xyz/get/udyam-website/downloads');
-                const data = await response.json();
-                const downloadElement = document.getElementById('downloads-counter');
-                animateCounter(downloadElement, data.value || 0);
-            } catch (error) {
-                console.error('Error fetching download count:', error);
-                document.getElementById('downloads-counter').textContent = '---';
+        // Increment counter
+        function incrementCounter(key) {
+            const current = parseInt(localStorage.getItem(key) || '0');
+            const newValue = current + 1;
+            localStorage.setItem(key, newValue.toString());
+            return newValue;
+        }
+
+        // Get or increment visitor count
+        function updateVisitorCount() {
+            const visitorKey = 'udyam_visitor_count';
+            const hasVisited = sessionStorage.getItem('udyam_has_visited');
+
+            let count;
+            if (!hasVisited) {
+                // New session - increment visitor count
+                count = incrementCounter(visitorKey);
+                sessionStorage.setItem('udyam_has_visited', 'true');
+            } else {
+                // Returning in same session - just show count
+                count = initializeCounter(visitorKey, 300); // Base value: 300 visitors
             }
+
+            const visitorElement = document.getElementById('visitors-counter');
+            animateCounter(visitorElement, count);
+        }
+
+        // Get download count
+        function updateDownloadCount() {
+            const downloadKey = 'udyam_download_count';
+            const count = initializeCounter(downloadKey, 10); // Base value: 10 downloads
+
+            const downloadElement = document.getElementById('downloads-counter');
+            animateCounter(downloadElement, count);
         }
 
         // Track download clicks
-        async function trackDownload() {
-            try {
-                await fetch('https://api.countapi.xyz/hit/udyam-website/downloads');
-                updateDownloadCount();
-            } catch (error) {
-                console.error('Error tracking download:', error);
-            }
+        function trackDownload() {
+            const downloadKey = 'udyam_download_count';
+            const newCount = incrementCounter(downloadKey);
+
+            const downloadElement = document.getElementById('downloads-counter');
+            downloadElement.textContent = newCount.toLocaleString();
         }
 
         // Add click event listeners to all download buttons
