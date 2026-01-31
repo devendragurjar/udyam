@@ -284,9 +284,18 @@
             return parseInt(stored);
         }
 
-        // Increment counter
-        function incrementCounter(key) {
-            const current = parseInt(localStorage.getItem(key) || '0');
+        // Increment counter with base value support
+        function incrementCounter(key, baseValue) {
+            const stored = localStorage.getItem(key);
+            let current;
+
+            if (!stored) {
+                // First time - start from base value
+                current = baseValue;
+            } else {
+                current = parseInt(stored);
+            }
+
             const newValue = current + 1;
             localStorage.setItem(key, newValue.toString());
             return newValue;
@@ -300,7 +309,7 @@
             let count;
             if (!hasVisited) {
                 // New session - increment visitor count
-                count = incrementCounter(visitorKey);
+                count = incrementCounter(visitorKey, 299); // Start from 299, will increment to 300
                 sessionStorage.setItem('udyam_has_visited', 'true');
             } else {
                 // Returning in same session - just show count
@@ -323,7 +332,7 @@
         // Track download clicks
         function trackDownload() {
             const downloadKey = 'udyam_download_count';
-            const newCount = incrementCounter(downloadKey);
+            const newCount = incrementCounter(downloadKey, 9); // Start from 9, will increment to 10
 
             const downloadElement = document.getElementById('downloads-counter');
             downloadElement.textContent = newCount.toLocaleString();
