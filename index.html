@@ -265,64 +265,46 @@
             }, stepTime);
         }
 
-        // Initialize counter with base value and localStorage
-        function initializeCounter(key, baseValue) {
-            const stored = localStorage.getItem(key);
-            if (!stored) {
-                // First time initialization with base value
-                localStorage.setItem(key, baseValue.toString());
-                return baseValue;
-            }
-            return parseInt(stored);
-        }
-
-        // Increment counter with base value support
-        function incrementCounter(key, baseValue) {
-            const stored = localStorage.getItem(key);
-            let current;
-
-            if (!stored) {
-                // First time - start from base value
-                current = baseValue;
-            } else {
-                current = parseInt(stored);
-            }
-
-            const newValue = current + 1;
-            localStorage.setItem(key, newValue.toString());
-            return newValue;
-        }
-
-        // Get download count
-        function updateDownloadCount() {
-            const downloadKey = 'udyam_download_count';
-            const count = initializeCounter(downloadKey, 10); // Base value: 10 downloads
-
+        // Fetch real download count from GitHub Releases API
+        async function updateDownloadCount() {
             const downloadElement = document.getElementById('downloads-counter');
-            animateCounter(downloadElement, count);
-        }
+            const baseCount = 55; // Starting base count
 
-        // Track download clicks
-        function trackDownload() {
-            const downloadKey = 'udyam_download_count';
-            const newCount = incrementCounter(downloadKey, 9); // Start from 9, will increment to 10
+            try {
+                // Fetch releases from GitHub API
+                const response = await fetch('https://api.github.com/repos/devendragurjar/udyam/releases');
+                const releases = await response.json();
 
-            const downloadElement = document.getElementById('downloads-counter');
-            downloadElement.textContent = newCount.toLocaleString();
-        }
+                // Sum up all download counts from all releases
+                let totalDownloads = 0;
 
-        // Add click event listeners to all download buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update counter on page load
-            updateDownloadCount();
-
-            // Track downloads
-            const downloadLinks = document.querySelectorAll('a[href*="Udyam-Setup"], a[href*="Udyam-1.0.0"]');
-            downloadLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    trackDownload();
+                releases.forEach(release => {
+                    if (release.assets && release.assets.length > 0) {
+                        release.assets.forEach(asset => {
+                            // Count downloads for .exe and .dmg files
+                            if (asset.name.includes('.exe') || asset.name.includes('.dmg')) {
+                                totalDownloads += asset.download_count || 0;
+                            }
+                        });
+                    }
                 });
-            });
+
+                // Add base count to GitHub downloads
+                const finalCount = baseCount + totalDownloads;
+
+                // Animate counter to final count
+                animateCounter(downloadElement, finalCount);
+
+            } catch (error) {
+                console.error('Error fetching download count:', error);
+                // Fallback to base count if API fails
+                animateCounter(downloadElement, baseCount);
+            }
+        }
+
+        // Initialize counter on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDownloadCount();
         });
     </script>
 </body>
