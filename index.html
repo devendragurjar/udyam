@@ -67,11 +67,6 @@
                         <div class="stat-number" id="downloads-counter">0</div>
                         <div class="stat-label">Total Downloads</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-number" id="visitors-counter">0</div>
-                        <div class="stat-label">Site Visitors</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -298,26 +293,6 @@
             return newValue;
         }
 
-        // Get or increment visitor count
-        function updateVisitorCount() {
-            const visitorKey = 'udyam_visitor_count';
-            const visitorFlagKey = 'udyam_visitor_tracked';
-            const hasVisited = localStorage.getItem(visitorFlagKey);
-
-            let count;
-            if (!hasVisited) {
-                // New unique visitor - increment visitor count
-                count = incrementCounter(visitorKey, 299); // Start from 299, will increment to 300
-                localStorage.setItem(visitorFlagKey, 'true');
-            } else {
-                // Returning visitor - just show count
-                count = initializeCounter(visitorKey, 300); // Base value: 300 visitors
-            }
-
-            const visitorElement = document.getElementById('visitors-counter');
-            animateCounter(visitorElement, count);
-        }
-
         // Get download count
         function updateDownloadCount() {
             const downloadKey = 'udyam_download_count';
@@ -338,8 +313,7 @@
 
         // Add click event listeners to all download buttons
         document.addEventListener('DOMContentLoaded', function() {
-            // Update counters on page load
-            updateVisitorCount();
+            // Update counter on page load
             updateDownloadCount();
 
             // Track downloads
