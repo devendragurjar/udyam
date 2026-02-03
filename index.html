@@ -283,15 +283,40 @@
             }, stepTime);
         }
 
-        // Fetch real download count from GitHub Releases API
+        // Fetch real download count from GitHub Releases API with caching
         async function updateDownloadCount() {
             const downloadElement = document.getElementById('downloads-counter');
             const baseCount = 55; // Starting base count
+            const cacheKey = 'udyam_download_cache';
+            const cacheTimeKey = 'udyam_download_cache_time';
+            const cacheExpiryMs = 60 * 60 * 1000; // 1 hour in milliseconds
 
+            // Check if we have cached data
+            const cachedCount = localStorage.getItem(cacheKey);
+            const cacheTime = localStorage.getItem(cacheTimeKey);
+            const now = Date.now();
+
+            // If cache exists and is less than 1 hour old, use it
+            if (cachedCount && cacheTime && (now - parseInt(cacheTime)) < cacheExpiryMs) {
+                console.log('Using cached download count');
+                animateCounter(downloadElement, parseInt(cachedCount));
+                return;
+            }
+
+            // Cache expired or doesn't exist, fetch from API
             try {
-                // Fetch releases from GitHub API
+                console.log('Fetching fresh download count from GitHub API');
                 const response = await fetch('https://api.github.com/repos/devendragurjar/udyam/releases');
                 const releases = await response.json();
+
+                // Check if API returned an error (rate limit, etc.)
+                if (releases.message) {
+                    console.warn('GitHub API error:', releases.message);
+                    // Use cached value if available, otherwise use base count
+                    const fallbackCount = cachedCount ? parseInt(cachedCount) : baseCount;
+                    animateCounter(downloadElement, fallbackCount);
+                    return;
+                }
 
                 // Sum up all download counts from all releases
                 let totalDownloads = 0;
@@ -310,13 +335,18 @@
                 // Add base count to GitHub downloads
                 const finalCount = baseCount + totalDownloads;
 
+                // Save to cache
+                localStorage.setItem(cacheKey, finalCount.toString());
+                localStorage.setItem(cacheTimeKey, now.toString());
+
                 // Animate counter to final count
                 animateCounter(downloadElement, finalCount);
 
             } catch (error) {
                 console.error('Error fetching download count:', error);
-                // Fallback to base count if API fails
-                animateCounter(downloadElement, baseCount);
+                // Use cached value if available, otherwise use base count
+                const fallbackCount = cachedCount ? parseInt(cachedCount) : baseCount;
+                animateCounter(downloadElement, fallbackCount);
             }
         }
 
